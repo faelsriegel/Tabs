@@ -155,21 +155,31 @@ export default function Accordion({ config }: AccordionProps) {
     <div className="flex flex-col items-center gap-3 sm:gap-6 w-full max-w-6xl mx-auto p-2 sm:p-4" ref={containerRef}>
       {/* Header with info */}
       <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
-        <Badge variant="outline" className="text-xs sm:text-base px-3 sm:px-4 py-0.5 sm:py-1 border-amber-500/30 dark:border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/5 text-amber-400 dark:text-amber-400">
+        <Badge variant="outline" className="text-xs sm:text-base px-3 sm:px-4 py-0.5 sm:py-1 border-amber-500/30 dark:border-amber-500/30 light:border-amber-600/40 bg-amber-500/5 dark:bg-amber-500/5 light:bg-amber-500/10 text-amber-400 dark:text-amber-400 light:text-amber-700">
           {config.tuning}
         </Badge>
-        <p className="text-xs sm:text-sm text-muted-foreground text-center max-w-md">
-          <span className="hidden sm:inline">Pressione </span><kbd className="px-1.5 sm:px-2 py-0.5 bg-amber-500/10 dark:bg-amber-500/10 border border-amber-500/20 dark:border-amber-500/20 rounded text-[10px] sm:text-xs font-mono text-amber-300 dark:text-amber-300">Espaço</kbd><span className="hidden sm:inline"> para alternar o fole</span><span className="sm:hidden"> = Fole</span>
-        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-2">
+          {/* Mobile: Botão de fole */}
+          <button
+            onClick={() => setBellowsDirection(prev => prev === 'open' ? 'close' : 'open')}
+            className="sm:hidden px-4 py-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-medium shadow-lg active:scale-95 transition-transform"
+          >
+            Fole: {bellowsDirection === 'open' ? '⬅️ Abrir' : '➡️ Fechar'}
+          </button>
+          {/* Desktop: Instrução de teclado */}
+          <p className="hidden sm:block text-xs sm:text-sm text-muted-foreground text-center max-w-md">
+            Pressione <kbd className="px-1.5 sm:px-2 py-0.5 bg-amber-500/10 dark:bg-amber-500/10 light:bg-amber-500/15 border border-amber-500/20 dark:border-amber-500/20 light:border-amber-600/40 rounded text-[10px] sm:text-xs font-mono text-amber-300 dark:text-amber-300 light:text-amber-700">Espaço</kbd> para alternar o fole
+          </p>
+        </div>
       </div>
 
       {/* Controls: Volume + Timbre - Responsivo */}
       <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4 w-full">
         {/* Volume Control */}
-        <div className="flex items-center gap-2 sm:gap-3 bg-amber-500/5 dark:bg-amber-500/5 backdrop-blur-sm px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full border border-amber-500/20 dark:border-amber-500/20 shadow-sm">
+        <div className="flex items-center gap-2 sm:gap-3 bg-amber-500/5 dark:bg-amber-500/5 light:bg-amber-500/10 backdrop-blur-sm px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full border border-amber-500/20 dark:border-amber-500/20 light:border-amber-600/30 shadow-sm">
           <button 
             onClick={() => setIsMuted(!isMuted)}
-            className="text-amber-400/70 dark:text-amber-400/70 hover:text-amber-400 dark:hover:text-amber-400 transition-colors"
+            className="text-amber-400/70 dark:text-amber-400/70 light:text-amber-600 hover:text-amber-400 dark:hover:text-amber-400 light:hover:text-amber-700 transition-colors"
           >
             {isMuted ? <VolumeX size={16} className="sm:w-[18px] sm:h-[18px]" /> : <Volume2 size={16} className="sm:w-[18px] sm:h-[18px]" />}
           </button>
@@ -180,12 +190,12 @@ export default function Accordion({ config }: AccordionProps) {
             step={1}
             className="w-16 sm:w-24"
           />
-          <span className="text-[10px] sm:text-xs text-amber-400/70 dark:text-amber-400/70 w-6 sm:w-8">{volume}%</span>
+          <span className="text-[10px] sm:text-xs text-amber-400/70 dark:text-amber-400/70 light:text-amber-600 w-6 sm:w-8">{volume}%</span>
         </div>
 
         {/* Timbre Selector */}
-        <div className="flex items-center gap-2 bg-amber-500/5 dark:bg-amber-500/5 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/20 dark:border-amber-500/20 shadow-sm">
-          <Waves size={14} className="sm:w-[18px] sm:h-[18px] text-amber-400/70 dark:text-amber-400/70" />
+        <div className="flex items-center gap-2 bg-amber-500/5 dark:bg-amber-500/5 light:bg-amber-500/10 backdrop-blur-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-amber-500/20 dark:border-amber-500/20 light:border-amber-600/30 shadow-sm">
+          <Waves size={14} className="sm:w-[18px] sm:h-[18px] text-amber-400/70 dark:text-amber-400/70 light:text-amber-600" />
           <Select value={selectedTimbre} onValueChange={setSelectedTimbre}>
             <SelectTrigger className="w-[110px] sm:w-[160px] border-0 bg-transparent h-6 sm:h-8 text-xs sm:text-sm">
               <SelectValue placeholder="Timbre" />
@@ -202,9 +212,9 @@ export default function Accordion({ config }: AccordionProps) {
       </div>
 
       {/* Main Accordion Body - Layout responsivo */}
-      <div className="relative flex flex-col sm:flex-row items-center sm:items-stretch justify-center gap-1 sm:gap-2 w-full overflow-x-auto">
+      <div className="relative flex flex-col sm:flex-row items-center sm:items-stretch justify-center gap-1 sm:gap-2 w-full overflow-x-auto px-2 sm:px-0">
         {/* Container que pode scroll horizontal em mobile */}
-        <div className="flex items-stretch justify-center gap-1 sm:gap-2 min-w-fit">
+        <div className="flex items-stretch justify-center gap-1 sm:gap-2 min-w-fit scale-75 sm:scale-100 origin-center">
           {/* Left Side - Bass Buttons */}
           <div 
             className={`
@@ -251,25 +261,25 @@ export default function Accordion({ config }: AccordionProps) {
             <div className="hidden sm:block absolute top-1/2 left-3 -translate-y-1/2 w-1 h-16 bg-gradient-to-b from-amber-400/20 via-amber-300/40 to-amber-400/20 rounded-full" />
             
             {/* Bass Buttons */}
-            <div className="flex flex-col gap-1.5 sm:gap-3 relative z-10">
+            <div className="flex flex-col gap-2.5 sm:gap-5 relative z-10">
               {config.bassButtons.map((button) => (
                 <motion.button
                   key={button.id}
                   className={`
-                    relative w-8 h-8 sm:w-14 sm:h-14 rounded-full
+                    relative w-12 h-12 sm:w-[72px] sm:h-[72px] rounded-full
                     flex items-center justify-center
-                    font-bold text-[10px] sm:text-sm
+                    font-bold text-xs sm:text-base
                     transition-all duration-75
                     touch-manipulation
                   `}
                   style={{
                     background: button.type === 'bass' 
-                      ? 'linear-gradient(145deg, #2a2a2a, #1a1a1a)'
-                      : 'linear-gradient(145deg, #f0e6d8, #c9b896)',
-                    border: button.type === 'bass' ? '2px solid #444' : '2px solid #a08060',
+                      ? 'linear-gradient(145deg, #1a1a1a, #050505)'
+                      : 'linear-gradient(145deg, #e0d4c0, #baa888)',
+                    border: button.type === 'bass' ? '3px solid #2a2a2a' : '3px solid #8a7560',
                     boxShadow: activeKeys.has(button.id)
-                      ? 'inset 0 2px 8px rgba(0,0,0,0.8), 0 0 20px rgba(255,200,100,0.5)'
-                      : '0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                      ? 'inset 0 4px 12px rgba(0,0,0,0.95), 0 0 30px rgba(255,200,100,0.7)'
+                      : '0 6px 12px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.2)',
                     transform: activeKeys.has(button.id) ? 'scale(0.95)' : 'scale(1)',
                   }}
                   animate={{
@@ -334,14 +344,14 @@ export default function Accordion({ config }: AccordionProps) {
           <motion.div
             className="relative flex items-center"
             animate={{
-              width: bellowsDirection === 'open' ? (typeof window !== 'undefined' && window.innerWidth < 640 ? '40px' : '70px') : (typeof window !== 'undefined' && window.innerWidth < 640 ? '15px' : '25px'),
+              width: bellowsDirection === 'open' ? (typeof window !== 'undefined' && window.innerWidth < 640 ? '50px' : '90px') : (typeof window !== 'undefined' && window.innerWidth < 640 ? '18px' : '30px'),
             }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
           >
             <div 
               className="h-full w-full relative overflow-hidden rounded-sm"
               style={{
-                minHeight: '200px',
+                minHeight: '280px',
                 background: '#1a1a1a',
               }}
             >
@@ -494,16 +504,16 @@ export default function Accordion({ config }: AccordionProps) {
                   <motion.button
                     key={button.id}
                     className={`
-                      relative w-6 h-16 sm:w-10 sm:h-32 rounded-b-md sm:rounded-b-lg
-                      flex flex-col items-center justify-end pb-1 sm:pb-2
-                      bg-gradient-to-b from-white via-gray-100 to-gray-200
-                      border border-gray-300
+                      relative w-9 h-28 sm:w-[54px] sm:h-[180px] rounded-b-md sm:rounded-b-lg
+                      flex flex-col items-center justify-end pb-2 sm:pb-4
+                      bg-gradient-to-b from-white via-gray-50 to-gray-100
+                      border border-gray-400 border-b-2 border-b-gray-500
                       touch-manipulation
                     `}
                     style={{
                       boxShadow: activeKeys.has(button.id)
-                        ? 'inset 0 2px 10px rgba(0,0,0,0.3)'
-                        : '0 4px 8px rgba(0,0,0,0.2), inset 0 -2px 0 rgba(0,0,0,0.1)',
+                        ? 'inset 0 4px 14px rgba(0,0,0,0.45)'
+                        : '0 6px 12px rgba(0,0,0,0.3), inset 0 -4px 0 rgba(0,0,0,0.18)',
                     }}
                     animate={{
                       scale: activeKeys.has(button.id) ? 0.97 : 1,
@@ -533,10 +543,10 @@ export default function Accordion({ config }: AccordionProps) {
                       }
                     }}
                   >
-                    <span className="text-[8px] sm:text-[10px] text-gray-500 font-medium">
+                    <span className="text-[9px] sm:text-xs text-gray-600 font-semibold">
                       {getNoteForButton(button.openNote, button.closeNote)}
                     </span>
-                    <span className="text-[8px] text-gray-400 font-mono">
+                    <span className="text-[8px] sm:text-[10px] text-gray-500 font-mono">
                       {button.keyBinding.toUpperCase()}
                     </span>
                   </motion.button>
@@ -552,12 +562,12 @@ export default function Accordion({ config }: AccordionProps) {
                   return (
                     <motion.button
                       key={button.id}
-                      className="absolute w-6 h-16 sm:w-7 sm:h-20 rounded-b-md bg-gradient-to-b from-gray-800 to-black border border-gray-700 z-10"
+                      className="absolute w-7 h-22 sm:w-9 sm:h-[120px] rounded-b-md bg-gradient-to-b from-gray-900 to-black border-2 border-black z-10"
                       style={{
                         left: `${left}px`,
                         boxShadow: activeKeys.has(button.id)
-                          ? 'inset 0 2px 6px rgba(0,0,0,0.8)'
-                          : '0 4px 8px rgba(0,0,0,0.4)',
+                          ? 'inset 0 4px 10px rgba(0,0,0,0.95)'
+                          : '0 6px 12px rgba(0,0,0,0.7), 0 3px 6px rgba(0,0,0,0.85)',
                       }}
                       animate={{
                         scale: activeKeys.has(button.id) ? 0.95 : 1,
@@ -595,15 +605,15 @@ export default function Accordion({ config }: AccordionProps) {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-1 sm:gap-3 pt-2 sm:pt-12">
+            <div className="flex flex-col gap-2 sm:gap-5 pt-2 sm:pt-12">
               {Object.entries(buttonsByRow).map(([rowNum, buttons]) => {
                 const rowIndex = parseInt(rowNum);
-                const offset = (rowIndex - 1) * 6; // Smaller offset on mobile
+                const offset = (rowIndex - 1) * 10; // Offset mais realista
                 
                 return (
                   <div 
                     key={rowNum} 
-                    className="flex gap-0.5 sm:gap-1.5"
+                    className="flex gap-1.5 sm:gap-2.5"
                     style={{ marginLeft: `${offset}px` }}
                   >
                     {buttons.map((button) => {
@@ -613,30 +623,30 @@ export default function Accordion({ config }: AccordionProps) {
                         <motion.button
                           key={button.id}
                           className={`
-                            relative w-7 h-7 sm:w-11 sm:h-11 rounded-full
+                            relative w-10 h-10 sm:w-16 sm:h-16 rounded-full
                             flex flex-col items-center justify-center
                             transition-all duration-75 overflow-hidden
                             touch-manipulation
                           `}
                           style={{
                             background: isActive
-                              ? `linear-gradient(145deg, #d4c4b0 0%, #a89070 50%, #8a7560 100%)`
-                              : `linear-gradient(145deg, #f5f0e8 0%, #e8e0d4 25%, #d8cfc0 50%, #ccc4b8 75%, #c0b8ac 100%)`,
+                              ? `linear-gradient(145deg, #c0b090 0%, #8a7050 50%, #6a5040 100%)`
+                              : `linear-gradient(145deg, #faf8f0 0%, #ece8dc 15%, #ded8cc 30%, #cfc9bd 45%, #c0baae 60%, #b1ab9f 75%, #a29c90 90%, #938d81 100%)`,
                             boxShadow: isActive
                               ? `
-                                  inset 0 3px 8px rgba(0,0,0,0.5), 
-                                  inset 0 -1px 2px rgba(255,255,255,0.2),
-                                  0 0 15px rgba(255,200,100,0.4)
+                                  inset 0 5px 12px rgba(0,0,0,0.65), 
+                                  inset 0 -3px 4px rgba(255,255,255,0.25),
+                                  0 0 25px rgba(255,200,100,0.6)
                                 `
                               : `
-                                  0 3px 6px rgba(0,0,0,0.4), 
-                                  0 6px 12px rgba(0,0,0,0.2),
-                                  inset 0 1px 0 rgba(255,255,255,0.9),
-                                  inset 0 -1px 0 rgba(0,0,0,0.1)
+                                  0 5px 10px rgba(0,0,0,0.5), 
+                                  0 9px 18px rgba(0,0,0,0.3),
+                                  inset 0 3px 0 rgba(255,255,255,1),
+                                  inset 0 -3px 0 rgba(0,0,0,0.2)
                                 `,
                             border: isActive 
-                              ? '1px solid #8a7560' 
-                              : '1px solid #b8a890',
+                              ? '3px solid #6a5040' 
+                              : '3px solid #a09580',
                             transform: isActive ? 'translateY(2px)' : 'translateY(0)',
                           }}
                           animate={{
@@ -681,13 +691,13 @@ export default function Accordion({ config }: AccordionProps) {
                             }
                           }}
                         >
-                          {/* Efeito de madrepérola/nácar */}
+                          {/* Efeito de madrepérola/nácar realista */}
                           <div 
-                            className="absolute inset-0 rounded-full opacity-30 pointer-events-none"
+                            className="absolute inset-0 rounded-full opacity-40 pointer-events-none"
                             style={{
                               background: `
-                                radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 50%),
-                                radial-gradient(ellipse at 70% 70%, rgba(200,180,160,0.3) 0%, transparent 40%)
+                                radial-gradient(ellipse at 25% 25%, rgba(255,255,255,0.8) 0%, transparent 40%),
+                                radial-gradient(ellipse at 75% 75%, rgba(220,200,180,0.5) 0%, transparent 30%)
                               `,
                             }}
                           />
@@ -703,10 +713,10 @@ export default function Accordion({ config }: AccordionProps) {
                             />
                           )}
                           
-                          <span className={`text-[6px] sm:text-[10px] font-semibold relative z-10 ${isActive ? 'text-amber-900' : 'text-stone-700'}`}>
+                          <span className={`text-xs sm:text-base font-bold relative z-10 ${isActive ? 'text-amber-900' : 'text-stone-800'}`}>
                             {getNoteForButton(button.openNote, button.closeNote)}
                           </span>
-                          <span className={`hidden sm:block text-[7px] font-mono relative z-10 ${isActive ? 'text-amber-800/70' : 'text-stone-500'}`}>
+                          <span className={`hidden sm:block text-[9px] sm:text-xs font-mono relative z-10 mt-1 ${isActive ? 'text-amber-800/70' : 'text-stone-600'}`}>
                             {button.keyBinding.toUpperCase()}
                           </span>
                           

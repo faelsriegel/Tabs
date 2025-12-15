@@ -50,7 +50,7 @@ function AccordionPageContent() {
             </Link>
             <Link href="/" className="flex items-center gap-2 sm:gap-3">
               <div className="relative h-8 w-8 sm:h-12 sm:w-12">
-                <Image src="/logo_semfundo.png" alt="TABS" fill className="object-contain" />
+                <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
               </div>
               <div className="flex flex-col">
                 <span className="font-script text-lg sm:text-2xl font-semibold text-amber-500 dark:text-amber-500 leading-none">Tabs</span>
@@ -189,7 +189,7 @@ function AccordionPageContent() {
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 sm:gap-6 px-4 md:flex-row">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="relative h-8 w-8 sm:h-12 sm:w-12">
-              <Image src="/logo_semfundo.png" alt="TABS" fill className="object-contain" />
+              <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="font-script text-lg sm:text-2xl font-semibold text-amber-500 dark:text-amber-500 leading-none">Tabs</span>
@@ -229,7 +229,7 @@ export default function AccordionPage() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="relative w-16 h-16 mx-auto mb-4 animate-pulse">
-            <Image src="/logo_semfundo.png" alt="TABS" fill className="object-contain" />
+            <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
           </div>
           <p className="font-bold">Tabs</p>
           <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Carregando acordeão...</p>

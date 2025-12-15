@@ -250,7 +250,7 @@ export default function HomePage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative h-12 w-12">
-              <Image src="/logo_semfundo.png" alt="TABS" fill className="object-contain" />
+              <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="font-script text-2xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600 leading-none">Tabs</span>
@@ -530,7 +530,7 @@ export default function HomePage() {
         <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-4 md:flex-row">
           <div className="flex items-center gap-3">
             <div className="relative h-12 w-12">
-              <Image src="/logo_semfundo.png" alt="TABS" fill className="object-contain" />
+              <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="font-script text-2xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600 leading-none">Tabs</span>
