@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AccordionConfig } from '@/types';
+import Image from 'next/image';
+import { AccordionConfig, AccordionButton } from '@/types';
 import { useAudioEngine } from '@/hooks/useAudioEngine';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
@@ -51,6 +52,7 @@ export default function Accordion({ config }: AccordionProps) {
   const [activeKeys, setActiveKeys] = useState<Set<string>>(new Set());
   const [isMuted, setIsMuted] = useState(false);
   const [selectedTimbre, setSelectedTimbre] = useState('accordion');
+  const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const { playNote, stopNote, setVolume, volume, setTimbre } = useAudioEngine();
@@ -150,6 +152,46 @@ export default function Accordion({ config }: AccordionProps) {
   // Get number of rows
   const isPianoStyle = config.id === 'piano';
   const isBandoneon = config.id === 'bandoneon';
+  const isDiatonic = config.id === 'diatonico';
+  const diatonicOverlayButtons = isDiatonic
+    ? config.buttons.map((button) => {
+        const columnGroup = Math.floor((button.position - 1) / 5);
+        const columnIndex = (button.position - 1) % 5;
+        const topOffset = 10 + (button.row - 1) * 23 + columnGroup * 3;
+        const leftBase = columnGroup === 0 ? 6 : 56;
+        const leftValue = leftBase + columnIndex * 6.5;
+
+        return {
+          id: button.id,
+          button,
+          top: `${Math.min(topOffset, 92)}%`,
+          left: `${Math.min(leftValue, 94)}%`,
+          width: '6.1%',
+          height: '6.1%',
+        };
+      })
+    : [];
+
+  const handleOverlayPress = (button: AccordionButton) => {
+    setActiveKeys((prev) => {
+      const next = new Set(prev);
+      next.add(button.id);
+      return next;
+    });
+
+    const note = getNoteForButton(button.openNote, button.closeNote);
+    playNote(button.id, convertNote(note));
+  };
+
+  const handleOverlayRelease = (button: AccordionButton) => {
+    setActiveKeys((prev) => {
+      const next = new Set(prev);
+      next.delete(button.id);
+      return next;
+    });
+
+    stopNote(button.id);
+  };
 
   return (
     <div className="flex flex-col items-center gap-3 sm:gap-6 w-full max-w-6xl mx-auto p-2 sm:p-4" ref={containerRef}>
