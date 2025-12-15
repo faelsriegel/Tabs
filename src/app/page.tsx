@@ -118,7 +118,12 @@ function FloatingElements() {
 
 function HeroVisual() {
   return (
-    <div className="relative">
+    <motion.div 
+      className="relative"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+    >
       <motion.div
         className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-amber-500/25 via-orange-600/15 to-yellow-700/10 dark:from-amber-500/25 dark:via-orange-600/15 dark:to-yellow-700/10 light:from-orange-400/25 light:via-amber-500/15 light:to-sky-600/10 blur-2xl"
         animate={{ opacity: [0.5, 0.7, 0.5] }}
@@ -170,13 +175,19 @@ function HeroVisual() {
         </div>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
 }
 
-function InstrumentCard({ instrument }: { instrument: Instrument }) {
+function InstrumentCard({ instrument, index }: { instrument: Instrument; index: number }) {
   return (
-    <Card className="group relative h-full overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-2xl hover:shadow-amber-600/20 dark:hover:shadow-amber-600/20 light:hover:shadow-orange-500/20">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: 'easeOut' }}
+    >
+      <Card className="group relative h-full overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-2xl hover:shadow-amber-600/20 dark:hover:shadow-amber-600/20 light:hover:shadow-orange-500/20">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <CardContent className="relative p-0 flex flex-col h-full">
         <div className="relative h-52 overflow-hidden flex-shrink-0">
@@ -217,6 +228,7 @@ function InstrumentCard({ instrument }: { instrument: Instrument }) {
         </div>
       </CardContent>
     </Card>
+    </motion.div>
   );
 }
 
@@ -286,7 +298,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-orange-600">
+                <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-amber-600">
                   Plataforma Musical Interativa
                 </p>
 
@@ -335,7 +347,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-amber-950/5 via-transparent to-amber-950/5 dark:from-amber-950/5 dark:to-amber-950/5 light:from-orange-50/30 light:to-orange-50/30" />
           <div className="container relative mx-auto px-4">
             <div className="mx-auto max-w-2xl text-center">
-              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-orange-600">Biblioteca</p>
+              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-amber-600">Biblioteca</p>
               <h2 className="font-display mt-5 bg-gradient-to-br from-foreground via-foreground to-amber-200/80 dark:to-amber-200/80 light:to-orange-600/80 bg-clip-text text-[clamp(2rem,4vw,3rem)] tracking-tight text-transparent">
                 Instrumentos com a mesma engenharia
               </h2>
@@ -345,8 +357,8 @@ export default function HomePage() {
             </div>
 
             <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {instruments.map((instrument) => (
-                <InstrumentCard key={instrument.id} instrument={instrument} />
+              {instruments.map((instrument, index) => (
+                <InstrumentCard key={instrument.id} instrument={instrument} index={index} />
               ))}
             </div>
           </div>
@@ -356,7 +368,7 @@ export default function HomePage() {
         <section id="tecnologia" className="relative border-t border-amber-500/10 dark:border-amber-500/10 light:border-orange-500/10 bg-gradient-to-b from-amber-950/10 via-background to-amber-950/5 dark:from-amber-950/10 dark:to-amber-950/5 light:from-orange-50/50 light:to-orange-50/30 py-24 md:py-32">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-2xl text-center">
-              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-orange-600">Arquitetura</p>
+              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-amber-600">Arquitetura</p>
               <h2 className="font-display mt-5 bg-gradient-to-br from-foreground via-foreground to-amber-200/80 dark:to-amber-200/80 light:to-orange-600/80 bg-clip-text text-[clamp(2rem,4vw,3rem)] tracking-tight text-transparent">
                 Construído para escalar
               </h2>
@@ -366,50 +378,71 @@ export default function HomePage() {
             </div>
 
             <div className="mt-14 grid gap-6 lg:grid-cols-3">
-              <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <CardContent className="relative p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
-                    <Sparkles className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
-                  </div>
-                  <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Camada de Experiência</h3>
-                  <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Landing + dashboard com SSR</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Tema claro/escuro dinâmico</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Biblioteca e roadmap centralizados</li>
-                  </ul>
-                </CardContent>
-              </Card>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0, ease: 'easeOut' }}
+              >
+                <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <CardContent className="relative p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
+                      <Sparkles className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
+                    </div>
+                    <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Camada de Experiência</h3>
+                    <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Landing + dashboard com SSR</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Tema claro/escuro dinâmico</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Biblioteca e roadmap centralizados</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <CardContent className="relative p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
-                    <Zap className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
-                  </div>
-                  <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Engine de Áudio</h3>
-                  <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Web Audio com workers dedicados</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Mapeamento teclado, mouse, touch, MIDI</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Automação push/pull e efeitos</li>
-                  </ul>
-                </CardContent>
-              </Card>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+              >
+                <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <CardContent className="relative p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
+                      <Zap className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
+                    </div>
+                    <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Engine de Áudio</h3>
+                    <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Web Audio com workers dedicados</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Mapeamento teclado, mouse, touch, MIDI</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Automação push/pull e efeitos</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <CardContent className="relative p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
-                    <BookOpen className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
-                  </div>
-                  <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Tabs e Telemetria</h3>
-                  <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Renderer nota a nota sincronizado</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Analytics de precisão e dinâmica</li>
-                    <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Preparado para modo gamificado</li>
-                  </ul>
-                </CardContent>
-              </Card>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+              >
+                <Card className="group relative overflow-hidden border-amber-500/20 dark:border-amber-500/20 light:border-orange-500/20 bg-gradient-to-br from-card via-card/95 to-amber-950/20 dark:to-amber-950/20 light:to-orange-50/20 transition-all duration-500 hover:border-amber-500/40 dark:hover:border-amber-500/40 light:hover:border-orange-500/40 hover:shadow-xl hover:shadow-amber-600/10 dark:hover:shadow-amber-600/10 light:hover:shadow-orange-500/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-600/5 dark:from-amber-500/5 dark:to-orange-600/5 light:from-orange-500/5 light:to-amber-600/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <CardContent className="relative p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 dark:from-amber-500/20 dark:to-orange-600/20 light:from-orange-500/20 light:to-amber-600/20 shadow-lg shadow-amber-500/10 dark:shadow-amber-500/10 light:shadow-orange-500/10">
+                      <BookOpen className="h-6 w-6 text-amber-400 dark:text-amber-400 light:text-orange-600" />
+                    </div>
+                    <h3 className="mt-5 bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-200 dark:to-orange-200 light:from-orange-600 light:to-amber-600 bg-clip-text text-lg font-semibold text-transparent">Tabs e Telemetria</h3>
+                    <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground/90">
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Renderer nota a nota sincronizado</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Analytics de precisão e dinâmica</li>
+                      <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-amber-500/60 dark:bg-amber-500/60 light:bg-orange-500/60" />Preparado para modo gamificado</li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -418,7 +451,7 @@ export default function HomePage() {
         <section id="roadmap" className="border-t border-amber-500/10 dark:border-amber-500/10 light:border-orange-500/10 py-24 md:py-32">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-2xl text-center">
-              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-orange-600">Roadmap</p>
+              <p className="font-script text-2xl text-amber-500 dark:text-amber-500 light:text-amber-600">Roadmap</p>
               <h2 className="font-display mt-5 bg-gradient-to-br from-foreground via-foreground to-amber-200/80 dark:to-amber-200/80 light:to-orange-600/80 bg-clip-text text-[clamp(2rem,4vw,3rem)] tracking-tight text-transparent">
                 O que vem por aí
               </h2>

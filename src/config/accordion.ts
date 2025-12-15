@@ -322,15 +322,15 @@ export function getAccordionConfig(id: string): AccordionConfig | undefined {
 // Categorized configs for the UI
 export const accordionCategories = {
   classicos: [
-    { id: 'diatonico', name: 'Diatônico', icon: '🪗' },
-    { id: 'piano', name: 'Piano', icon: '🎹' },
-    { id: 'cromatico', name: 'Cromático', icon: '🔘' },
-    { id: 'bandoneon', name: 'Bandoneón', icon: '🎭' },
+    { id: 'diatonico', name: 'Diatônico' },
+    { id: 'piano', name: 'Piano' },
+    { id: 'cromatico', name: 'Cromático' },
+    { id: 'bandoneon', name: 'Bandoneón' },
   ],
   paises: [
-    { id: 'mexicano', name: 'Mexicano', icon: '🇲🇽' },
-    { id: 'colombiano', name: 'Colombiano', icon: '🇨🇴' },
-    { id: 'steirische', name: 'Austríaco', icon: '🇦🇹' },
-    { id: 'verdulera', name: 'Argentino', icon: '🇦🇷' },
+    { id: 'mexicano', name: 'Mexicano' },
+    { id: 'colombiano', name: 'Colombiano' },
+    { id: 'steirische', name: 'Austríaco' },
+    { id: 'verdulera', name: 'Argentino' },
   ],
 };

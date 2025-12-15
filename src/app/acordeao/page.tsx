@@ -71,10 +71,7 @@ function AccordionPageContent() {
                 </div>
                 {accordionCategories.classicos.map((acc) => (
                   <SelectItem key={acc.id} value={acc.id}>
-                    <span className="flex items-center gap-2">
-                      <span>{acc.icon}</span>
-                      <span>{acc.name}</span>
-                    </span>
+                    <span>{acc.name}</span>
                   </SelectItem>
                 ))}
                 <div className="px-2 py-1.5 text-xs font-semibold text-amber-500/70 dark:text-amber-500/70 border-t mt-1 pt-2">
@@ -82,10 +79,7 @@ function AccordionPageContent() {
                 </div>
                 {accordionCategories.paises.map((acc) => (
                   <SelectItem key={acc.id} value={acc.id}>
-                    <span className="flex items-center gap-2">
-                      <span>{acc.icon}</span>
-                      <span>{acc.name}</span>
-                    </span>
+                    <span>{acc.name}</span>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -181,11 +175,7 @@ function AccordionPageContent() {
                   }
                 `}
               >
-                <div className="text-base sm:text-xl mb-0.5 sm:mb-1">
-                  {accordionCategories.classicos.find(c => c.id === acc.id)?.icon || 
-                   accordionCategories.paises.find(c => c.id === acc.id)?.icon || '🪗'}
-                </div>
-                <div className="text-[8px] sm:text-[10px] font-medium truncate">
+                <div className="text-[9px] sm:text-[11px] font-medium truncate px-1">
                   {acc.name.split(' ')[0]}
                 </div>
               </button>

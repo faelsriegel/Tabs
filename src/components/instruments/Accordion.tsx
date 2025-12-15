@@ -17,11 +17,11 @@ import { Volume2, VolumeX, Music, Waves } from 'lucide-react';
 
 // Tipos de timbre disponíveis
 const timbres = [
-  { id: 'accordion', name: 'Acordeão Clássico', icon: '🪗' },
-  { id: 'musette', name: 'Musette Francês', icon: '🇫🇷' },
-  { id: 'bandoneon', name: 'Bandoneón Tango', icon: '🇦🇷' },
-  { id: 'organ', name: 'Órgão', icon: '⛪' },
-  { id: 'harmonica', name: 'Gaita/Harmônica', icon: '🎵' },
+  { id: 'accordion', name: 'Acordeão Clássico' },
+  { id: 'musette', name: 'Musette Francês' },
+  { id: 'bandoneón', name: 'Bandoneón Tango' },
+  { id: 'organ', name: 'Órgão' },
+  { id: 'harmonica', name: 'Gaita/Harmônica' },
 ];
 
 // Mapeamento de notas PT-BR para EN
@@ -193,10 +193,7 @@ export default function Accordion({ config }: AccordionProps) {
             <SelectContent>
               {timbres.map((timbre) => (
                 <SelectItem key={timbre.id} value={timbre.id}>
-                  <span className="flex items-center gap-2">
-                    <span>{timbre.icon}</span>
-                    <span className="text-xs sm:text-sm">{timbre.name}</span>
-                  </span>
+                  <span className="text-xs sm:text-sm">{timbre.name}</span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -400,17 +397,9 @@ export default function Accordion({ config }: AccordionProps) {
             <div className="absolute top-0 right-0 w-[6px] h-full bg-gradient-to-l from-amber-900 to-amber-800 shadow-lg" />
             
             {/* Indicador de direção do fole */}
+            {/* Bellows animation indicator - removed icon */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <motion.div
-                animate={{ 
-                  x: bellowsDirection === 'open' ? 5 : -5,
-                  scale: bellowsDirection === 'open' ? 1.1 : 0.9,
-                }}
-                transition={{ duration: 0.2 }}
-                className="text-white/30"
-              >
-                <Music size={14} className="sm:w-[18px] sm:h-[18px]" />
-              </motion.div>
+              {/* Icon removed for cleaner professional look */}
             </div>
           </div>
         </motion.div>
