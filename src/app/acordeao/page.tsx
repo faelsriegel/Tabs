@@ -48,14 +48,8 @@ function AccordionPageContent() {
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
             </Link>
-            <Link href="/" className="flex items-center gap-2 sm:gap-3">
-              <div className="relative h-8 w-8 sm:h-12 sm:w-12">
-                <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-script text-lg sm:text-2xl font-semibold text-amber-500 dark:text-amber-500 leading-none">Tabs</span>
-                <span className="hidden sm:block text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70 leading-none mt-0.5">Tecnologias de Aprendizagem Musical Baseadas em Som</span>
-              </div>
+            <Link href="/" className="flex items-center">
+              <span className="font-script text-2xl sm:text-4xl font-semibold text-amber-500 dark:text-amber-500">Tabs</span>
             </Link>
           </div>
           
@@ -187,14 +181,11 @@ function AccordionPageContent() {
       {/* Footer - Responsivo */}
       <footer className="border-t border-amber-500/10 dark:border-amber-500/10 bg-gradient-to-b from-background to-amber-950/10 dark:to-amber-950/10 py-6 sm:py-12 mt-6 sm:mt-12">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 sm:gap-6 px-4 md:flex-row">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="relative h-8 w-8 sm:h-12 sm:w-12">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="relative h-10 w-10 sm:h-14 sm:w-14">
               <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-script text-lg sm:text-2xl font-semibold text-amber-500 dark:text-amber-500 leading-none">Tabs</span>
-              <span className="hidden sm:block text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70 leading-none mt-0.5">Tecnologias de Aprendizagem Musical Baseadas em Som</span>
-            </div>
+            <span className="font-script text-2xl sm:text-4xl font-semibold text-amber-500 dark:text-amber-500">Tabs</span>
           </div>
           
           <p className="text-xs sm:text-sm text-muted-foreground text-center">
@@ -207,15 +198,7 @@ function AccordionPageContent() {
             >
               SRC Ltda
             </a>
-            {' '}· Inspirado no{' '}
-            <a 
-              href="https://acordeonvirtual.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-amber-400 dark:text-amber-400 light:text-orange-400 hover:underline"
-            >
-              Acordeão Virtual
-            </a>
+
           </p>
         </div>
       </footer>
@@ -231,8 +214,8 @@ export default function AccordionPage() {
           <div className="relative w-16 h-16 mx-auto mb-4 animate-pulse">
             <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
           </div>
-          <p className="font-bold">Tabs</p>
-          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Carregando acordeão...</p>
+          <p className="font-script text-3xl font-semibold text-amber-500">Tabs</p>
+          <p className="text-sm text-muted-foreground mt-2">Carregando acordeão...</p>
         </div>
       </div>
     }>

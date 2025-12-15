@@ -248,14 +248,8 @@ export default function HomePage() {
       {/* Header */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-amber-500/10 dark:border-amber-500/10 light:border-orange-500/10 bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative h-12 w-12">
-              <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-script text-2xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600 leading-none">Tabs</span>
-              <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70 leading-none mt-0.5">Tecnologias de Aprendizagem Musical Baseadas em Som</span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <span className="font-script text-4xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600">Tabs</span>
           </Link>
 
           <nav className="hidden items-center gap-10 md:flex">
@@ -528,14 +522,11 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-amber-500/10 dark:border-amber-500/10 light:border-orange-500/10 bg-gradient-to-b from-background to-amber-950/10 dark:to-amber-950/10 light:to-orange-50/30 py-12">
         <div className="container mx-auto flex flex-col items-center justify-between gap-6 px-4 md:flex-row">
-          <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12">
+          <div className="flex items-center gap-4">
+            <div className="relative h-14 w-14">
               <Image src="/logo_semfundo.webp" alt="TABS" fill className="object-contain" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-script text-2xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600 leading-none">Tabs</span>
-              <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70 leading-none mt-0.5">Tecnologias de Aprendizagem Musical Baseadas em Som</span>
-            </div>
+            <span className="font-script text-4xl font-semibold text-amber-500 dark:text-amber-500 light:text-orange-600">Tabs</span>
           </div>
           
           <p className="text-sm text-muted-foreground">
